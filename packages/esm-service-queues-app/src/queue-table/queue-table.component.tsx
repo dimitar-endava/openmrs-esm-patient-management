@@ -82,6 +82,8 @@ function QueueTable({
       columns.forEach(({ key, CellComponent }) => {
         row[key] = <CellComponent key={key} queueEntry={queueEntry} />;
       });
+      // include physicalCondition for bed if available
+      row['physicalCondition'] = queueEntry.bed?.physicalCondition ?? '';
       return row;
     }) ?? [];
 

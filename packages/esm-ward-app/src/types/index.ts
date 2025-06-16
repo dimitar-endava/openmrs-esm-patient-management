@@ -72,6 +72,8 @@ export interface Bed {
   row: number;
   column: number;
   status: BedStatus;
+  /** Physical condition of the bed */
+  physicalCondition?: string;
 }
 
 export interface BedDetail {

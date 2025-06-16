@@ -12,7 +12,12 @@ export interface WardBedProps {
 
 const WardBed: React.FC<WardBedProps> = (props) => {
   const { bed, patientCards } = props;
-  return patientCards?.length > 0 ? <OccupiedBed {...props} /> : <EmptyBed bed={bed} />;
+  return (
+    <>
+      <span>{`Condition: ${bed.physicalCondition}`}</span>
+      {patientCards?.length > 0 ? <OccupiedBed {...props} /> : <EmptyBed bed={bed} />}
+    </>
+  );
 };
 
 const OccupiedBed: React.FC<WardBedProps> = ({ patientCards, isLoadingDivider }) => {

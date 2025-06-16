@@ -468,6 +468,10 @@ export interface QueueEntry {
   sortWeight: number;
   queueComingFrom: Queue;
   previousQueueEntry: QueueEntry;
+  /** Associated bed information including physical condition */
+  bed?: {
+    physicalCondition?: string;
+  };
 }
 
 export interface QueueEntrySearchCriteria {

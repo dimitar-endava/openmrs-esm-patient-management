@@ -74,6 +74,9 @@ const createSchema = (t: TFunction) => {
     bedType: z.string().refine((value) => value != '', {
       message: t('invalidBedType', 'Please select a valid bed type'),
     }),
+    physicalCondition: z.string().refine((value) => value !== '', {
+      message: t('invalidPhysicalCondition', 'Please select a valid physical condition'),
+    }),
   });
 };
 
@@ -109,6 +112,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
       bedType: initialData.bedType?.name ?? '',
       location: initialData.location ?? {},
       occupancyStatus: capitalize(initialData.status) ?? occupancyStatus,
+      physicalCondition: initialData.physicalCondition ?? 'new',
     },
   });
 
@@ -250,6 +254,26 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                         {bedType.name}
                       </SelectItem>
                     ))}
+                  </Select>
+                )}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Controller
+                name="physicalCondition"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Select
+                    defaultValue={initialData.physicalCondition ?? 'new'}
+                    id="physicalCondition"
+                    invalidText={fieldState.error?.message}
+                    labelText={t('physicalCondition', 'Physical Condition')}
+                    {...field}>
+                    <SelectItem text={t('choosePhysicalCondition', 'Choose a physical condition')} value="" />
+                    <SelectItem text={t('physicalConditionNew', 'New')} value="new" />
+                    <SelectItem text={t('physicalConditionGood', 'Good')} value="good" />
+                    <SelectItem text={t('physicalConditionFair', 'Fair')} value="fair" />
+                    <SelectItem text={t('physicalConditionPoor', 'Poor')} value="poor" />
                   </Select>
                 )}
               />
