@@ -86,6 +86,7 @@ export interface Bed {
   row: number;
   column: number;
   status: 'AVAILABLE' | 'OCCUPIED';
+  bedCondition?: string;
 }
 
 export interface BedWithLocation extends Bed {
@@ -123,6 +124,7 @@ export interface BedPostPayload {
   column: number;
   status: string;
   locationUuid: string;
+  bedCondition: string;
 }
 
 export interface BedTagPayload {
