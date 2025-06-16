@@ -20,6 +20,7 @@ const NewBedForm: React.FC<NewBedFormProps> = ({ closeModal, mutate, defaultLoca
 
   const headerTitle = t('createNewBed', 'Create a new bed');
   const occupancyStatuses = ['Available', 'Occupied'];
+  const conditionStatuses = ['New', 'Good', 'Fair', 'Broken', 'Damaged', 'Decommissioned'];
   const availableBedTypes = bedTypes ? bedTypes : [];
 
   const initialData: BedWithLocation = {
@@ -31,11 +32,12 @@ const NewBedForm: React.FC<NewBedFormProps> = ({ closeModal, mutate, defaultLoca
     row: 0,
     status: null,
     uuid: '',
+    condition: '',
   };
 
   const handleCreateBed = useCallback(
-    (formData: BedAdministrationData) => {
-      const { bedId, occupancyStatus, bedRow, bedColumn, location, bedType } = formData;
+      (formData: BedAdministrationData) => {
+    const { bedId, occupancyStatus, bedRow, bedColumn, location, bedType, condition } = formData;
 
       const bedObject = {
         bedNumber: bedId,
@@ -44,6 +46,7 @@ const NewBedForm: React.FC<NewBedFormProps> = ({ closeModal, mutate, defaultLoca
         row: parseInt(bedRow.toString()),
         column: parseInt(bedColumn.toString()),
         locationUuid: location.uuid,
+        condition: condition.toUpperCase(),
       };
 
       saveBed({ bedPayload: bedObject })
@@ -76,6 +79,7 @@ const NewBedForm: React.FC<NewBedFormProps> = ({ closeModal, mutate, defaultLoca
       handleCreateBed={handleCreateBed}
       headerTitle={headerTitle}
       occupancyStatuses={occupancyStatuses}
+      conditionStatuses={conditionStatuses}
       initialData={initialData}
     />
   );

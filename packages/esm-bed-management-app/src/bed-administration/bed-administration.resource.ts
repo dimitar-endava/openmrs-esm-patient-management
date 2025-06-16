@@ -9,6 +9,8 @@ interface BedForm {
   row: number;
   column: number;
   status: string;
+  /** Physical condition of the bed */
+  condition: string;
   locationUuid: string;
 }
 

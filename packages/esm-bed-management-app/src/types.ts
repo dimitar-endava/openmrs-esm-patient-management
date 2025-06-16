@@ -86,6 +86,8 @@ export interface Bed {
   row: number;
   column: number;
   status: 'AVAILABLE' | 'OCCUPIED';
+  /** Physical condition of the bed */
+  condition: string;
 }
 
 export interface BedWithLocation extends Bed {
@@ -122,6 +124,8 @@ export interface BedPostPayload {
   row: number;
   column: number;
   status: string;
+  /** Physical condition of the bed */
+  condition: string;
   locationUuid: string;
 }
 
@@ -158,6 +162,8 @@ export type MappedBedData = Array<{
   number: string;
   type: string;
   status: string;
+  /** Physical condition of the bed */
+  condition: string;
   uuid: string;
 }>;
 

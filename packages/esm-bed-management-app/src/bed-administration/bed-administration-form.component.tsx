@@ -27,6 +27,14 @@ import type { BedType, BedWithLocation } from '../types';
  * Adds translation for occupancy status options
  * t('occupancyStatusAvailable', 'Available')
  * t('occupancyStatusOccupied', 'Occupied')
+ *
+ * Adds translation for bed condition options
+ * t('conditionNew', 'New')
+ * t('conditionGood', 'Good')
+ * t('conditionFair', 'Fair')
+ * t('conditionBroken', 'Broken')
+ * t('conditionDamaged', 'Damaged')
+ * t('conditionDecommissioned', 'Decommissioned')
  */
 
 interface BedAdministrationFormProps {
@@ -36,6 +44,8 @@ interface BedAdministrationFormProps {
   headerTitle: string;
   initialData: BedWithLocation;
   occupancyStatuses: string[];
+  /** Available bed condition options */
+  conditionStatuses: string[];
   closeModal: () => void;
 }
 
@@ -74,6 +84,9 @@ const createSchema = (t: TFunction) => {
     bedType: z.string().refine((value) => value != '', {
       message: t('invalidBedType', 'Please select a valid bed type'),
     }),
+    condition: z.string().refine((value) => value != '', {
+      message: t('invalidBedCondition', 'Please select a valid bed condition'),
+    }),
   });
 };
 
@@ -88,6 +101,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const [occupancyStatus, setOccupancyStatus] = useState(capitalize(initialData.status));
+  const [condition, setCondition] = useState(capitalize(initialData.condition?.toLowerCase() ?? ''));
   const [selectedBedType] = useState(initialData.bedType?.name ?? '');
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [formStateError, setFormStateError] = useState('');
@@ -109,6 +123,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
       bedType: initialData.bedType?.name ?? '',
       location: initialData.location ?? {},
       occupancyStatus: capitalize(initialData.status) ?? occupancyStatus,
+      condition,
     },
   });
 
@@ -249,6 +264,31 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                       <SelectItem text={bedType.name} value={bedType.name} key={`bedType-${index}`}>
                         {bedType.name}
                       </SelectItem>
+                    ))}
+                  </Select>
+                )}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Controller
+                name="condition"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Select
+                    defaultValue={condition}
+                    id="condition"
+                    invalidText={fieldState.error?.message}
+                    labelText={t('bedCondition', 'Bed Condition')}
+                    onChange={(event) => setCondition(event.target.value)}
+                    value={condition}
+                    {...field}>
+                    <SelectItem text={t('chooseBedCondition', 'Choose bed condition')} value="" />
+                    {conditionStatuses.map((conditionOption, index) => (
+                      <SelectItem
+                        key={`condition-${index}`}
+                        text={t(`condition${conditionOption}`, `${conditionOption}`)}
+                        value={conditionOption}
+                      />
                     ))}
                   </Select>
                 )}

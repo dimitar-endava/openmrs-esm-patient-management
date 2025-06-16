@@ -20,28 +20,31 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
   const availableBedTypes = bedTypes ? bedTypes : [];
   const headerTitle = t('editBed', 'Edit bed');
   const occupancyStatuses = ['Available', 'Occupied'];
+  const conditionStatuses = ['New', 'Good', 'Fair', 'Broken', 'Damaged', 'Decommissioned'];
 
   const handleCreateBed = useCallback(
-    (formData: BedAdministrationData) => {
-      const bedUuid = editData.uuid;
+      (formData: BedAdministrationData) => {
+    const bedUuid = editData.uuid;
 
-      const {
-        bedColumn = editData.column.toString(),
-        bedId = editData.bedNumber,
-        bedRow = editData.row.toString(),
-        bedType = editData.bedType.name,
-        location: { uuid: bedLocation = editData.location.uuid },
-        occupancyStatus = editData.status,
-      } = formData;
+    const {
+      bedColumn = editData.column.toString(),
+      bedId = editData.bedNumber,
+      bedRow = editData.row.toString(),
+      bedType = editData.bedType.name,
+      location: { uuid: bedLocation = editData.location.uuid },
+      occupancyStatus = editData.status,
+      condition = editData.condition,
+    } = formData;
 
-      const bedPayload = {
-        bedNumber: bedId,
-        bedType,
-        column: parseInt(bedColumn),
-        locationUuid: bedLocation,
-        row: parseInt(bedRow),
-        status: occupancyStatus.toUpperCase(),
-      };
+    const bedPayload = {
+      bedNumber: bedId,
+      bedType,
+      column: parseInt(bedColumn),
+      locationUuid: bedLocation,
+      row: parseInt(bedRow),
+      status: occupancyStatus.toUpperCase(),
+      condition: condition.toUpperCase(),
+    };
 
       editBed({ bedPayload, bedId: bedUuid })
         .then(() => {
@@ -86,6 +89,7 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
       headerTitle={headerTitle}
       initialData={editData}
       occupancyStatuses={occupancyStatuses}
+      conditionStatuses={conditionStatuses}
       closeModal={closeModal}
     />
   );
