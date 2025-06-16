@@ -93,6 +93,7 @@ export interface BedWithLocation extends Bed {
     display: string;
     uuid: string;
   };
+  physicalCondition?: string;
 }
 
 export interface BedType {
@@ -123,6 +124,7 @@ export interface BedPostPayload {
   column: number;
   status: string;
   locationUuid: string;
+  physicalCondition: string;
 }
 
 export interface BedTagPayload {

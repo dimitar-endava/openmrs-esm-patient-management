@@ -31,11 +31,12 @@ const NewBedForm: React.FC<NewBedFormProps> = ({ closeModal, mutate, defaultLoca
     row: 0,
     status: null,
     uuid: '',
+    physicalCondition: '',
   };
 
   const handleCreateBed = useCallback(
     (formData: BedAdministrationData) => {
-      const { bedId, occupancyStatus, bedRow, bedColumn, location, bedType } = formData;
+      const { bedId, occupancyStatus, bedRow, bedColumn, location, bedType, physicalCondition } = formData;
 
       const bedObject = {
         bedNumber: bedId,
@@ -44,6 +45,7 @@ const NewBedForm: React.FC<NewBedFormProps> = ({ closeModal, mutate, defaultLoca
         row: parseInt(bedRow.toString()),
         column: parseInt(bedColumn.toString()),
         locationUuid: location.uuid,
+        physicalCondition,
       };
 
       saveBed({ bedPayload: bedObject })

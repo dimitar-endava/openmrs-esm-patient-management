@@ -74,6 +74,9 @@ const createSchema = (t: TFunction) => {
     bedType: z.string().refine((value) => value != '', {
       message: t('invalidBedType', 'Please select a valid bed type'),
     }),
+    physicalCondition: z.string().refine((value) => value != '', {
+      message: t('invalidPhysicalCondition', 'Please select a valid physical condition'),
+    }),
   });
 };
 
@@ -89,6 +92,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
   const { t } = useTranslation();
   const [occupancyStatus, setOccupancyStatus] = useState(capitalize(initialData.status));
   const [selectedBedType] = useState(initialData.bedType?.name ?? '');
+  const physicalConditionOptions = ['new', 'good', 'fair', 'broken', 'damaged', 'decommissioned'];
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [formStateError, setFormStateError] = useState('');
 
@@ -109,6 +113,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
       bedType: initialData.bedType?.name ?? '',
       location: initialData.location ?? {},
       occupancyStatus: capitalize(initialData.status) ?? occupancyStatus,
+      physicalCondition: initialData.physicalCondition ?? '',
     },
   });
 
@@ -226,6 +231,30 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                         key={`occupancyStatus-${index}`}
                         text={t(`occupancyStatus${occupancyStatus}`, `${occupancyStatus}`)}
                         value={occupancyStatus}
+                      />
+                    ))}
+                  </Select>
+                )}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Controller
+                name="physicalCondition"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Select
+                    id="physicalCondition"
+                    invalidText={fieldState.error?.message}
+                    labelText={t('physicalCondition', 'Physical Condition')}
+                    placeholder={t('enterPhysicalCondition', 'Enter the physical condition of the bed')}
+                    {...field}>
+                    <SelectItem text={t('choosePhysicalCondition', 'Choose physical condition')} value="" />
+                    {physicalConditionOptions.map((condition, index) => (
+                      <SelectItem
+                        key={`physicalCondition-${index}`}
+                        text={t(`physicalCondition${capitalize(condition)}`, `${condition}`)}
+                        value={condition}
                       />
                     ))}
                   </Select>
