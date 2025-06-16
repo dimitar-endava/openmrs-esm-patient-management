@@ -103,6 +103,10 @@ const BedAdministrationTable: React.FC = () => {
       header: t('location', 'Location'),
     },
     {
+      key: 'condition',
+      header: t('condition', 'Condition'),
+    },
+    {
       key: 'occupancyStatus',
       header: t('occupancyStatus', 'Occupancy status'),
     },
@@ -121,6 +125,7 @@ const BedAdministrationTable: React.FC = () => {
       id: bed.uuid,
       bedNumber: bed.bedNumber,
       location: bed.location.display,
+      condition: bed.condition ?? '',
       occupancyStatus: <CustomTag condition={bed?.status === 'OCCUPIED'} />,
       allocationStatus: <CustomTag condition={Boolean(bed.location?.uuid)} />,
       actions: (
