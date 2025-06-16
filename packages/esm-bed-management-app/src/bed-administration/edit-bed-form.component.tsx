@@ -20,6 +20,7 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
   const availableBedTypes = bedTypes ? bedTypes : [];
   const headerTitle = t('editBed', 'Edit bed');
   const occupancyStatuses = ['Available', 'Occupied'];
+  const physicalConditions = ['New', 'Good', 'Fair', 'Broken', 'Damaged', 'Decommissioned'];
 
   const handleCreateBed = useCallback(
     (formData: BedAdministrationData) => {
@@ -32,6 +33,7 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
         bedType = editData.bedType.name,
         location: { uuid: bedLocation = editData.location.uuid },
         occupancyStatus = editData.status,
+        physicalCondition = editData.physicalCondition,
       } = formData;
 
       const bedPayload = {
@@ -41,6 +43,7 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
         locationUuid: bedLocation,
         row: parseInt(bedRow),
         status: occupancyStatus.toUpperCase(),
+        physicalCondition,
       };
 
       editBed({ bedPayload, bedId: bedUuid })
@@ -82,6 +85,7 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
     <BedAdministrationForm
       allLocations={admissionLocations}
       availableBedTypes={availableBedTypes}
+      physicalConditions={physicalConditions}
       handleCreateBed={handleCreateBed}
       headerTitle={headerTitle}
       initialData={editData}

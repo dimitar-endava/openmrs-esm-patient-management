@@ -10,6 +10,8 @@ interface BedForm {
   column: number;
   status: string;
   locationUuid: string;
+  /** Physical condition of the bed */
+  physicalCondition: string;
 }
 
 export async function saveBed({ bedPayload }: { bedPayload: BedPostPayload }): Promise<FetchResponse<BedForm>> {

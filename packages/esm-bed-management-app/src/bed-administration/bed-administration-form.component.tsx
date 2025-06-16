@@ -27,11 +27,21 @@ import type { BedType, BedWithLocation } from '../types';
  * Adds translation for occupancy status options
  * t('occupancyStatusAvailable', 'Available')
  * t('occupancyStatusOccupied', 'Occupied')
+ *
+ * Adds translation for physical condition options
+ * t('physicalConditionNew', 'New')
+ * t('physicalConditionGood', 'Good')
+ * t('physicalConditionFair', 'Fair')
+ * t('physicalConditionBroken', 'Broken')
+ * t('physicalConditionDamaged', 'Damaged')
+ * t('physicalConditionDecommissioned', 'Decommissioned')
  */
 
 interface BedAdministrationFormProps {
   allLocations: Location[];
   availableBedTypes: Array<BedType>;
+  /** List of physical condition options */
+  physicalConditions: string[];
   handleCreateBed?: (formData: BedAdministrationData) => void;
   headerTitle: string;
   initialData: BedWithLocation;
@@ -74,12 +84,16 @@ const createSchema = (t: TFunction) => {
     bedType: z.string().refine((value) => value != '', {
       message: t('invalidBedType', 'Please select a valid bed type'),
     }),
+    physicalCondition: z.string().refine((value) => value != '', {
+      message: t('invalidPhysicalCondition', 'Please select a valid physical condition'),
+    }),
   });
 };
 
 const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
   allLocations,
   availableBedTypes,
+  physicalConditions,
   handleCreateBed,
   headerTitle,
   initialData,
@@ -109,6 +123,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
       bedType: initialData.bedType?.name ?? '',
       location: initialData.location ?? {},
       occupancyStatus: capitalize(initialData.status) ?? occupancyStatus,
+      physicalCondition: initialData.physicalCondition ?? '',
     },
   });
 
@@ -249,6 +264,32 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                       <SelectItem text={bedType.name} value={bedType.name} key={`bedType-${index}`}>
                         {bedType.name}
                       </SelectItem>
+                    ))}
+                  </Select>
+                )}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Controller
+                name="physicalCondition"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Select
+                    defaultValue={initialData.physicalCondition ?? ''}
+                    id="physicalCondition"
+                    invalidText={fieldState.error?.message}
+                    labelText={t('physicalCondition', 'Physical condition')}
+                    {...field}>
+                    <SelectItem
+                      text={t('choosePhysicalCondition', 'Choose a physical condition')}
+                      value=""
+                    />
+                    {physicalConditions.map((condition, index) => (
+                      <SelectItem
+                        key={`physicalCondition-${index}`}
+                        text={t(`physicalCondition${condition}`, `${condition}`)}
+                        value={condition}
+                      />
                     ))}
                   </Select>
                 )}
