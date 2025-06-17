@@ -32,6 +32,7 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
         bedType = editData.bedType.name,
         location: { uuid: bedLocation = editData.location.uuid },
         occupancyStatus = editData.status,
+        bedCondition = editData.bedCondition,
       } = formData;
 
       const bedPayload = {
@@ -41,6 +42,7 @@ const EditBedForm: React.FC<EditBedFormProps> = ({ closeModal, editData, mutate 
         locationUuid: bedLocation,
         row: parseInt(bedRow),
         status: occupancyStatus.toUpperCase(),
+        bedCondition,
       };
 
       editBed({ bedPayload, bedId: bedUuid })

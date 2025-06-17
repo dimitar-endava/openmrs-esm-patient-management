@@ -51,6 +51,7 @@ export const useBedsForLocation = (locationUuid: string) => {
     number: bed.bedNumber,
     status: bed.status,
     uuid: bed.uuid,
+    bedCondition: bed.bedCondition,
   }));
 
   const results = useMemo(

@@ -97,5 +97,7 @@
   "type": "Type",
   "viewBeds": "View beds",
   "wardAllocation": "Ward allocation",
-  "yes": "Yes"
+  "yes": "Yes",
+  "bedCondition": "Bed Condition",
+  "enterBedCondition": "e.g. Good, Needs Repair"
 }

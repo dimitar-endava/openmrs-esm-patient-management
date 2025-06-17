@@ -8,6 +8,7 @@ export interface BedAdministrationData {
     uuid: string;
   };
   occupancyStatus: string;
+  bedCondition?: string;
 }
 
 export interface BedTypeDataAdministration {

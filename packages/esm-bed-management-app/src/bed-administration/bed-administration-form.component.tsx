@@ -74,6 +74,7 @@ const createSchema = (t: TFunction) => {
     bedType: z.string().refine((value) => value != '', {
       message: t('invalidBedType', 'Please select a valid bed type'),
     }),
+    bedCondition: z.string().optional(),
   });
 };
 
@@ -251,6 +252,21 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                       </SelectItem>
                     ))}
                   </Select>
+                )}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Controller
+                name="bedCondition"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextInput
+                    id="bedCondition"
+                    invalidText={fieldState.error?.message}
+                    labelText={t('bedCondition', 'Bed Condition')}
+                    placeholder={t('enterBedCondition', 'e.g. Good, Needs Repair')}
+                    {...field}
+                  />
                 )}
               />
             </FormGroup>

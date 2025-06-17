@@ -16,7 +16,7 @@ export async function saveBed({ bedPayload }: { bedPayload: BedPostPayload }): P
   return await openmrsFetch(`${restBaseUrl}/bed`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: bedPayload,
+    body: JSON.stringify(bedPayload),
   });
 }
 
@@ -50,6 +50,6 @@ export async function editBed({
   return await openmrsFetch(`${restBaseUrl}/bed/${bedId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: bedPayload,
+    body: JSON.stringify(bedPayload),
   });
 }

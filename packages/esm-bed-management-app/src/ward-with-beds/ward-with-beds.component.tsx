@@ -55,6 +55,11 @@ const WardWithBeds: React.FC = () => {
     },
     {
       id: 3,
+      header: t('bedCondition', 'Bed Condition'),
+      key: 'bedCondition',
+    },
+    {
+      id: 4,
       header: t('occupied', 'Occupied'),
       key: 'occupied',
     },
@@ -83,6 +88,7 @@ const WardWithBeds: React.FC = () => {
       id: bed.id,
       number: bed.number,
       type: bed.type,
+      bedCondition: bed.bedCondition,
       occupied: <CustomTag condition={bed?.status === 'OCCUPIED'} />,
     }));
   }, [paginatedData]);
