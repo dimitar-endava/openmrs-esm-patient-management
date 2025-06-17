@@ -1,8 +1,7 @@
 # Bed Management App
 
-A frontend module for managing beds in a facility. It allows creating
-wards and beds in those wards: Configuring beds and where they are located in the wards. It does not provide any functionality
-related to patients, such as assigning patients to beds. This provides a simple UI for setting up names of beds and where those beds can be found. Then the Ward App uses this information. 
+A frontend module for managing beds in a facility. It allows creating wards and beds in those wards, configuring beds and where they are located in the wards, including tracking the physical condition of beds. It does not provide any functionality
+related to patients, such as assigning patients to beds. This provides a simple UI for setting up names of beds and where those beds can be found. Then the Ward App uses this information.
 
 So for example:
 * Hospital X
