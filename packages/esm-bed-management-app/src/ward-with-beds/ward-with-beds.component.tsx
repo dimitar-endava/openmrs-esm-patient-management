@@ -55,6 +55,11 @@ const WardWithBeds: React.FC = () => {
     },
     {
       id: 3,
+      header: t('condition', 'Condition'),
+      key: 'condition',
+    },
+    {
+      id: 4,
       header: t('occupied', 'Occupied'),
       key: 'occupied',
     },
@@ -79,12 +84,19 @@ const WardWithBeds: React.FC = () => {
   };
 
   const tableRows = useMemo(() => {
-    return paginatedData?.map((bed) => ({
-      id: bed.id,
-      number: bed.number,
-      type: bed.type,
-      occupied: <CustomTag condition={bed?.status === 'OCCUPIED'} />,
-    }));
+    return paginatedData?.map((bed) => {
+      if (['broken', 'damaged', 'decommissioned'].includes(bed.condition)) {
+        return null;
+      }
+
+      return {
+        id: bed.id,
+        number: bed.number,
+        type: bed.type,
+        occupied: <CustomTag condition={bed?.status === 'OCCUPIED'} />,
+        condition: bed.condition,
+      };
+    }).filter(Boolean);
   }, [paginatedData]);
 
   const openNewBedModal = () => {

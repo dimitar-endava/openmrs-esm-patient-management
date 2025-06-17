@@ -50,6 +50,7 @@ export const useBedsForLocation = (locationUuid: string) => {
     type: bed.bedType?.displayName,
     number: bed.bedNumber,
     status: bed.status,
+    condition: bed.condition,
     uuid: bed.uuid,
   }));
 

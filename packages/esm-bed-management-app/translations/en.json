@@ -69,6 +69,7 @@
   "itemsPerPage": "Items per page:",
   "loading": "Loading...",
   "location": "Location",
+  "condition": "Condition",
   "manageBeds": "Manage beds",
   "name": "Name",
   "newBedCreated": "New bed created",
