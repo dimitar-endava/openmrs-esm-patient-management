@@ -130,15 +130,27 @@ function QueueTableSection() {
     });
   }
 
+  const sortedQueueEntries = useMemo(() => {
+    if (!queueEntries) {
+      return [];
+    }
+    return [...queueEntries].sort((a, b) => {
+      if (b.sortWeight !== a.sortWeight) {
+        return b.sortWeight - a.sortWeight;
+      }
+      return new Date(a.startedAt).getTime() - new Date(b.startedAt).getTime();
+    });
+  }, [queueEntries]);
+
   const filteredQueueEntries = useMemo(() => {
     const searchTermLowercase = searchTerm.toLowerCase();
-    return queueEntries?.filter((queueEntry) => {
+    return sortedQueueEntries.filter((queueEntry) => {
       return columns.some((column) => {
         const columnSearchTerm = column.getFilterableValue?.(queueEntry)?.toLocaleLowerCase();
         return columnSearchTerm?.includes(searchTermLowercase);
       });
     });
-  }, [columns, queueEntries, searchTerm]);
+  }, [columns, sortedQueueEntries, searchTerm]);
 
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" />;
