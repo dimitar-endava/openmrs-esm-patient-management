@@ -74,6 +74,9 @@ const createSchema = (t: TFunction) => {
     bedType: z.string().refine((value) => value != '', {
       message: t('invalidBedType', 'Please select a valid bed type'),
     }),
+    bedCondition: z.string().refine((value) => value != '', {
+      message: t('invalidBedCondition', 'Please select a valid bed condition'),
+    }),
   });
 };
 
@@ -93,6 +96,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
   const [formStateError, setFormStateError] = useState('');
 
   const BedAdministrationSchema = createSchema(t);
+  const bedConditions = ['Good', 'Damaged', 'Broken', 'Decommissioned'];
 
   const {
     handleSubmit,
@@ -109,6 +113,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
       bedType: initialData.bedType?.name ?? '',
       location: initialData.location ?? {},
       occupancyStatus: capitalize(initialData.status) ?? occupancyStatus,
+      bedCondition: initialData.bedCondition ?? '',
     },
   });
 
@@ -249,6 +254,28 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                       <SelectItem text={bedType.name} value={bedType.name} key={`bedType-${index}`}>
                         {bedType.name}
                       </SelectItem>
+                    ))}
+                  </Select>
+                )}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Controller
+                name="bedCondition"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Select
+                    id="bedCondition"
+                    invalidText={fieldState.error?.message}
+                    labelText={t('bedCondition', 'Bed condition')}
+                    {...field}>
+                    <SelectItem text={t('chooseBedCondition', 'Choose bed condition')} value="" />
+                    {bedConditions.map((condition, idx) => (
+                      <SelectItem
+                        key={`bedCondition-${idx}`}
+                        text={t(`bedCondition${condition}`, `${condition}`)}
+                        value={condition}
+                      />
                     ))}
                   </Select>
                 )}

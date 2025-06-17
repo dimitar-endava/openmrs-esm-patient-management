@@ -8,7 +8,10 @@ const WardPatientBedNumber: React.FC<{ bed: Bed }> = ({ bed }) => {
   }
   return (
     <div className={styles.bedNumberBox}>
-      <span className={styles.wardPatientBedNumber}>{bed.bedNumber}</span>
+      <span className={styles.wardPatientBedNumber}>
+        {bed.bedNumber}
+        {bed.bedCondition ? ` (${bed.bedCondition})` : null}
+      </span>
     </div>
   );
 };

@@ -72,6 +72,7 @@ export interface Bed {
   row: number;
   column: number;
   status: BedStatus;
+  bedCondition?: string;
 }
 
 export interface BedDetail {
@@ -93,6 +94,7 @@ export interface BedLayout {
   location: string;
   patients: Patient[];
   bedTagMaps: BedTagMap[];
+  bedCondition?: string;
 }
 
 export interface BedType {

@@ -32,6 +32,7 @@ export function bedLayoutToBed(bedLayout: BedLayout): Bed {
     row: bedLayout.rowNumber,
     column: bedLayout.columnNumber,
     status: bedLayout.status,
+    bedCondition: bedLayout.bedCondition ?? '',
   };
 }
 
@@ -39,8 +40,9 @@ export function filterBeds(admissionLocation: AdmissionLocationFetchResponse): B
   // admissionLocation.bedLayouts can contain row+column positions with no bed,
   // filter out layout positions with no real bed
   let collator = new Intl.Collator([], { numeric: true });
+  const unsuitable = new Set(['BROKEN', 'DAMAGED', 'DECOMMISSIONED']);
   const bedLayouts = admissionLocation.bedLayouts
-    .filter((bl) => bl.bedId)
+    .filter((bl) => bl.bedId && !(bl.bedCondition && unsuitable.has(bl.bedCondition.toUpperCase())))
     .sort((bedA, bedB) => collator.compare(bedA.bedNumber, bedB.bedNumber));
 
   return bedLayouts;

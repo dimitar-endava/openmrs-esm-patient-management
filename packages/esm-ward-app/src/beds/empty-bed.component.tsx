@@ -15,6 +15,7 @@ const EmptyBed: React.FC<EmptyBedProps> = ({ bed }) => {
     <div className={styles.emptyBed}>
       <span className={`${wardPatientCardStyles.wardPatientBedNumber} ${wardPatientCardStyles.empty}`}>
         {bed.bedNumber}
+        {bed.bedCondition ? ` (${bed.bedCondition})` : null}
       </span>
       <p className={styles.emptyBedText}>{t('emptyBed', 'Empty bed')}</p>
     </div>
