@@ -62,7 +62,9 @@ const MaternalWardBeds: React.FC<MotherChildRelationships> = (motherChildRelatio
         bed={bed}
         patientCards={patientCards}
         isLoadingDivider={isLoadingMotherChildRelationships}
-      />
+      >
+        <span>Condition: {bed.physicalCondition}</span>
+      </WardBed>
     );
   });
 
