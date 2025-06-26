@@ -32,6 +32,7 @@ export function bedLayoutToBed(bedLayout: BedLayout): Bed {
     row: bedLayout.rowNumber,
     column: bedLayout.columnNumber,
     status: bedLayout.status,
+    physicalCondition: bedLayout.physicalCondition,
   };
 }
 

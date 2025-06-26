@@ -30,6 +30,7 @@ const NewBedForm: React.FC<NewBedFormProps> = ({ closeModal, mutate, defaultLoca
     location: defaultLocation || { display: '', uuid: '' },
     row: 0,
     status: null,
+    physicalCondition: 'fair',
     uuid: '',
   };
 

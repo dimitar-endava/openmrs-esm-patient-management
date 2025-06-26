@@ -31,7 +31,11 @@ function DefaultWardBeds() {
     const patientCards = wardPatients.map((wardPatient) => (
       <DefaultWardPatientCard key={wardPatient.patient.uuid} {...{ wardPatient }} />
     ));
-    return <WardBed key={bed.uuid} bed={bed} patientCards={patientCards} />;
+    return (
+      <WardBed key={bed.uuid} bed={bed} patientCards={patientCards}>
+        <span>Condition: {bed.physicalCondition}</span>
+      </WardBed>
+    );
   });
 
   return <>{wardBeds}</>;
